@@ -1,18 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Text, View, Button } from 'react-native';
+import { styles } from './styles';
 
 import { useState, useEffect } from 'react';
-import { Audio, AVPlaybackSourceObject, AVPlaybackStatus } from 'expo-av';
-import * as DocumentPicker from 'expo-document-picker';
+import { Audio } from 'expo-av';
 
-import Slider from '@react-native-community/slider';
+import Scrubber from './components/Scrubber/Scrubber';
+import LoadSoundButton from './components/SoundLoader/LoadSound';
+import PlayPauseButton from './components/PlayPause/PlayPauseButton';
 
-export default function App() {
+export default function App(): JSX.Element {
 
+  // State for the song currently being played. Used by all child components of the app. 
   const [sound, setSound] = useState<Audio.Sound>();
-  const [sliderValue, setSliderValue] = useState<number>(0);
 
-  // Runs once when app opens. 
+  // Runs once when app opens. Allow sound to play even if the phone is on silent.  
   useEffect(() => {
     const setAudioConfig = async() => {
       await Audio.setAudioModeAsync({
@@ -23,83 +25,20 @@ export default function App() {
       .catch(console.error);
   }, [])
 
-  // Update the slider. 
-  useEffect(() => {
-    const interval = setInterval(() => updateSlider(), 500);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-
-  const loadSound = async() => {
-    console.log('load')
-    const result: DocumentPicker.DocumentResult = await DocumentPicker.getDocumentAsync(
-      {
-        copyToCacheDirectory: true,
-        type: 'audio/*'
-      });
-    if (result.type === 'cancel') {
-      console.log('Failed to set sound.'); 
-      return;
-    }
-    const playbackObject: AVPlaybackSourceObject = {
-      uri: result.uri
-    }
-    const { sound } = await Audio.Sound.createAsync(playbackObject);
-    sound.setStatusAsync({
-      isLooping: true
-    })
-    setSound(sound);
-  }
-
-  const playSound = async() => {
-    console.log('play')
-    console.log(sound)
-    await sound.playAsync().catch(console.error);
-  }
-
-  const pauseSound = async() => {
-    await sound.pauseAsync().catch(console.error);
-  }
-
   const unloadSound = async() => {
     console.log(sound);
     await sound.unloadAsync().catch(console.error);
     console.log(sound);
   }
 
-  const updateSlider = async() => {
-    const status: AVPlaybackStatus = await sound.getStatusAsync();
-    console.log(status)
-    if (status.isLoaded) {
-      setSliderValue(status.positionMillis / status.durationMillis);
-    } 
-  }
-
   return (
     <View style={styles.container}>
       <Text>AFX Dance Music App</Text>
       <StatusBar style="auto" />
-      <Button title="Load" onPress={loadSound}/>
-      <Button title="Play" onPress={playSound}/>
-      <Button title="Pause" onPress={pauseSound}/>
+      <LoadSoundButton setSound={setSound}/>
+      <PlayPauseButton sound={sound}/>
       <Button title="Unload" onPress={unloadSound}/>
-      <Slider
-        style={{width: 200, height: 40}}
-        minimumValue={0}
-        maximumValue={1}
-        value={sliderValue}
-      />
+      <Scrubber sound={sound}/>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
