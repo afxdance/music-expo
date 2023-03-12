@@ -16,4 +16,4 @@ The current version of the music app. Using Expo greatly streamlines the onboard
 Looking at these files (in order) should give you a general sense of how the app works:
 * `App.tsx`: Main file containing the visual layout of the app and its state. 
 * `styles.tsx`: Contains the CSS styles used throughout the app. Imported by `App.tsx`.
-* `components/PlayPause/PlayPauseButton.tsx`: An example component which uses the (https://docs.expo.dev/versions/v48.0.0/sdk/audio/)[Expo Audio API] to play and pause sound.
+* `components/PlayPause/PlayPauseButton.tsx`: An example component which uses the [Expo Audio API](https://docs.expo.dev/versions/v48.0.0/sdk/audio/) to play and pause sound.
