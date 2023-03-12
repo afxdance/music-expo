@@ -11,3 +11,9 @@ The current version of the music app. Using Expo greatly streamlines the onboard
 ## Running the App 
 * Start the app: `npx expo start`
 * Take a picture of the QR code using your phone camera. The app should load onto your phone.
+
+## Onboarding 
+Looking at these files (in order) should give you a general sense of how the app works:
+* `App.tsx`: Main file containing the visual layout of the app and its state. 
+* `styles.tsx`: Contains the CSS styles used throughout the app. Imported by `App.tsx`.
+* `components/PlayPause/PlayPauseButton.tsx`: An example component which uses the (https://docs.expo.dev/versions/v48.0.0/sdk/audio/)[Expo Audio API] to play and pause sound.

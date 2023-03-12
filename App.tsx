@@ -3,7 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { styles } from './styles';
 
 import { useState, useEffect } from 'react';
-import { Audio, AVPlaybackSource, AVPlaybackSourceObject } from 'expo-av';
+import { Audio, AVPlaybackSourceObject } from 'expo-av';
 
 import Scrubber from './components/Scrubber/Scrubber';
 import LoadSoundButton from './components/SoundLoader/LoadSound';
