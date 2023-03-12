@@ -4,11 +4,15 @@ import { Button } from 'react-native';
 
 type LoadSoundProps = {
  setSound: (sound: Audio.Sound) => void;
+ setSource: (source: AVPlaybackSourceObject) => void;
+ unloadSound: () => Promise<void>;
 };
 
 const LoadSoundButton = (props: LoadSoundProps) => {
+
+
   const loadSound = async() => {
-    console.log('load')
+    console.log('loadSound');
     const result: DocumentPicker.DocumentResult = await DocumentPicker.getDocumentAsync(
       {
         copyToCacheDirectory: true,
@@ -24,7 +28,9 @@ const LoadSoundButton = (props: LoadSoundProps) => {
     const { sound } = await Audio.Sound.createAsync(playbackObject);
     sound.setStatusAsync({
       isLooping: true
-    })
+    });
+    await props.unloadSound()
+    props.setSource(playbackObject);
     props.setSound(sound);
   }
 

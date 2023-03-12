@@ -14,10 +14,12 @@ const Scrubber = (props: ScrubberProps) => {
   // Update the song duration whenever there is a new sound. 
   useEffect(() => {
     const setDurationAsync = async() => {
-      if (props.sound instanceof Audio.Sound) {
+      if (props.sound != null) {
         const status: AVPlaybackStatus = await props.sound.getStatusAsync();
         if (status.isLoaded) {
           setDuration(status.durationMillis);
+        } else {
+          setDuration(0);
         }
       }
     }
@@ -25,33 +27,31 @@ const Scrubber = (props: ScrubberProps) => {
       .catch(console.error);
   }, [props.sound]);
 
-  // Run updateSlider() every 100 milleseconds. 
   useEffect(() => {
-    console.log('called');
-    const interval = setInterval(() => updateSlider(), 1000);
+    console.log('Reload scrubber')
+    
+    // Run updateSlider() every 100 milleseconds. 
+    const interval = setInterval(() => updateSlider(), 100);
     return () => {
       clearInterval(interval);
     };
-  }, []);
-
-  // Run updateSlider() whenever there is a new song, or the duration of the song is updated.
-  useEffect(() => {
-    updateSlider();
-  }, [props.sound, duration])
+  }, [duration, props.sound]);
 
   // Update the position of the slider by calling setSliderValue()
   const updateSlider = async() => {
-    if (props.sound !== undefined) {
+    if (props.sound != null && duration > 0) {
       const status: AVPlaybackStatus = await props.sound.getStatusAsync();
-      if (status.isLoaded && duration > 0) {
-        console.log(status.positionMillis / duration);
+      if (status.isLoaded) {
         setSliderValue(status.positionMillis / duration);
       } 
+    } else {
+      setSliderValue(0);
     }
   }
 
   // Set the song to start playing from the slider position. 
   const setSoundPosition = async(value: number) => {
+    console.log('set position');
     if (props.sound instanceof Audio.Sound) {
       await props.sound.playFromPositionAsync(value * duration)
     }

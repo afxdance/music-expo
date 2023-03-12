@@ -7,12 +7,12 @@ type PlayPauseButtonProps = {
 
 const PlayPauseButton = (props: PlayPauseButtonProps) => {
   const playSound = async() => {
-    console.log('play')
+    console.log('playSound')
     await props.sound.playAsync().catch(console.error);
   }
 
   const pauseSound = async() => {
-    console.log('pause');
+    console.log('pauseSound');
     await props.sound.pauseAsync().catch(console.error);
   }
 
