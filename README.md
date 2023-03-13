@@ -6,7 +6,7 @@ The current version of the music app. Using Expo greatly streamlines the onboard
 * Login to expo from your laptop: https://docs.expo.dev/get-started/installation/
 * Download Expo Go from the app store on your phone
 * Pull the code from https://github.com/afxdance/music-expo onto your computer
-* Install dependencies: `npx expo install`
+* Install dependencies: `npm install`
 
 ## Running the App 
 * Start the app: `npx expo start`
