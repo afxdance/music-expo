@@ -1,17 +1,22 @@
 import { Audio, AVPlaybackStatus } from 'expo-av';
+import { useState } from 'react';
 import { Button } from 'react-native';
+
 
 type PlayPauseButtonProps = {
  sound: Audio.Sound;
 };
 
 const PlayPauseButton = (props: PlayPauseButtonProps) => {
+  const [play, setPlay] = useState<boolean>(false);
   const playSound = async() => {
+    setPlay(true);
     console.log('playSound')
     await props.sound.playAsync().catch(console.error);
   }
 
   const pauseSound = async() => {
+    setPlay(false);
     console.log('pauseSound');
     await props.sound.pauseAsync().catch(console.error);
   }
@@ -29,7 +34,10 @@ const PlayPauseButton = (props: PlayPauseButtonProps) => {
   }
 
   return (
-    <Button title="PlayPause" onPress={toggleSound}/>
+    <Button
+      title={play == false ? 'Play' : 'Pause'}
+      onPress={toggleSound}
+    />
   )
 }
 

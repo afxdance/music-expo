@@ -8,6 +8,7 @@ import { Audio, AVPlaybackSourceObject } from 'expo-av';
 import Scrubber from './components/Scrubber/Scrubber';
 import LoadSoundButton from './components/SoundLoader/LoadSound';
 import PlayPauseButton from './components/PlayPause/PlayPauseButton';
+import SpeedChanger from './components/SpeedChanger/SpeedChanger';
 import Title from './components/Title/Title';
 
 export default function App(): JSX.Element {
@@ -45,6 +46,7 @@ export default function App(): JSX.Element {
       <Button title="Unload" onPress={unloadSound}/>
       <Scrubber sound={sound}/>
       <Title source={source}/>
+      <SpeedChanger sound={sound}/>
     </View>
   );
 }
