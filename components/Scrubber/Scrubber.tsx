@@ -4,6 +4,7 @@ import { Audio, AVPlaybackStatus } from 'expo-av';
 
 type ScrubberProps = {
   sound: Audio.Sound;
+  loop: number[];
 };
 
 const Scrubber = (props: ScrubberProps) => {

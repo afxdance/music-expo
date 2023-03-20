@@ -9,12 +9,14 @@ import Scrubber from './components/Scrubber/Scrubber';
 import LoadSoundButton from './components/SoundLoader/LoadSound';
 import PlayPauseButton from './components/PlayPause/PlayPauseButton';
 import Title from './components/Title/Title';
+import LoopButton from './components/Loop/LoopButton/LoopButton';
 
 export default function App(): JSX.Element {
 
   // State for the song currently being played. Used by all child components of the app. 
   const [sound, setSound] = useState<Audio.Sound>();
   const [source, setSource] = useState<AVPlaybackSourceObject>();
+  const [loop, setLoop] = useState<number[]>([-1,-1]);
 
   // Runs once when app opens. Allow sound to play even if the phone is on silent.  
   useEffect(() => {
@@ -43,8 +45,10 @@ export default function App(): JSX.Element {
       <LoadSoundButton setSound={setSound} setSource={setSource} unloadSound={unloadSound}/>
       <PlayPauseButton sound={sound}/>
       <Button title="Unload" onPress={unloadSound}/>
-      <Scrubber sound={sound}/>
+      <Scrubber sound={sound} loop={loop}/>
       <Title source={source}/>
+      <LoopButton sound={sound} setLoop={setLoop}/>
+      <Text>Current loop: {loop}</Text>
     </View>
   );
 }

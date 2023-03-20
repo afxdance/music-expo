@@ -1,9 +1,11 @@
 import { Audio, AVPlaybackStatus } from 'expo-av';
-import { Button } from 'react-native';
+import { Button, ImageBackground } from 'react-native';
 
 type PlayPauseButtonProps = {
  sound: Audio.Sound;
 };
+
+const image = {uri: './image.jpeg'}
 
 const PlayPauseButton = (props: PlayPauseButtonProps) => {
   const playSound = async() => {
@@ -29,7 +31,9 @@ const PlayPauseButton = (props: PlayPauseButtonProps) => {
   }
 
   return (
-    <Button title="PlayPause" onPress={toggleSound}/>
+    <ImageBackground source={image}>
+     <Button title="PlayPause" onPress={toggleSound}/>
+    </ImageBackground>
   )
 }
 
