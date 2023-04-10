@@ -1,6 +1,8 @@
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { useState } from 'react';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
+import {styles} from './styles';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 type PlayPauseButtonProps = {
@@ -34,11 +36,12 @@ const PlayPauseButton = (props: PlayPauseButtonProps) => {
   }
 
   return (
-    <Button
-      title={play == false ? 'Play' : 'Pause'}
-      onPress={toggleSound}
-    />
+    <View>
+      <FontAwesome.Button name="play" color="black" backgroundColor="white" onPress={toggleSound}></FontAwesome.Button>
+    </View>
+    
   )
 }
+
 
 export default PlayPauseButton;
