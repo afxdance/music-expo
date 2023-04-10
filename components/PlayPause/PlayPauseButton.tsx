@@ -37,7 +37,7 @@ const PlayPauseButton = (props: PlayPauseButtonProps) => {
 
   return (
     <View>
-      <FontAwesome.Button name="play" color="black" backgroundColor="white" onPress={toggleSound}></FontAwesome.Button>
+      <FontAwesome.Button name={play ? "pause" : "play"} color="black" backgroundColor="white" onPress={toggleSound}></FontAwesome.Button>
     </View>
     
   )
