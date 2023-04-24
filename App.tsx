@@ -2,8 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button } from 'react-native';
 import { styles } from './styles';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Audio, AVPlaybackSourceObject } from 'expo-av';
+import PagerView from 'react-native-pager-view';
+import { StyleSheet } from 'react-native';
 
 import Scrubber from './components/Scrubber/Scrubber';
 import LoadSoundButton from './components/SoundLoader/LoadSound';
@@ -37,16 +39,41 @@ export default function App(): JSX.Element {
     }
   }
 
+  const styles = StyleSheet.create({
+    viewPager: {
+      flex: 1,
+    },
+    page: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>AFX Dance Music App</Text>
-      <StatusBar style="auto" />
-      <LoadSoundButton setSound={setSound} setSource={setSource} unloadSound={unloadSound}/>
-      <PlayPauseButton sound={sound}/>
-      <Button title="Unload" onPress={unloadSound}/>
-      <Scrubber sound={sound}/>
-      <Title source={source}/>
-      <SpeedChanger sound={sound}/>
+    // <View style={styles.container}>
+    //   <Text>AFX Dance Music App</Text>
+    //   <StatusBar style="auto" />
+    //   <LoadSoundButton setSound={setSound} setSource={setSource} unloadSound={unloadSound}/>
+    //   <PlayPauseButton sound={sound}/>
+    //   <Button title="Unload" onPress={unloadSound}/>
+    //   <Scrubber sound={sound}/>
+    //   <Title source={source}/>
+    //   <SpeedChanger sound={sound}/>
+    // </View>
+
+    <View style={{ flex: 1 }}>
+      <PagerView style={styles.viewPager} initialPage={0}>
+        <View style={styles.page} key="1">
+          <Text>First page</Text>
+          <Text>Swipe ➡️</Text>
+        </View>
+        <View style={styles.page} key="2">
+          <Text>Second page</Text>
+        </View>
+        <View style={styles.page} key="3">
+          <Text>Third page</Text>
+        </View>
+      </PagerView>
     </View>
   );
 }
