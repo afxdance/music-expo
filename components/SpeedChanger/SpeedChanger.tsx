@@ -2,6 +2,7 @@ import { Audio, AVPlaybackStatus } from 'expo-av';
 import { useState } from 'react';
 import { Button, View } from 'react-native';
 import { styles } from './styles';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 type SpeedChangerProps = {
     sound: Audio.Sound;
