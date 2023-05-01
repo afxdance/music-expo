@@ -10,6 +10,7 @@ import LoadSoundButton from './components/SoundLoader/LoadSound';
 import PlayPauseButton from './components/PlayPause/PlayPauseButton';
 import Title from './components/Title/Title';
 import LoopButton from './components/Loop/LoopButton/LoopButton';
+import LoopFunc from './components/Loop/LoopFunc/LoopFunc';
 
 export default function App(): JSX.Element {
 
@@ -48,7 +49,8 @@ export default function App(): JSX.Element {
       <Scrubber sound={sound} loop={loop}/>
       <Title source={source}/>
       <LoopButton sound={sound} setLoop={setLoop}/>
-      <Text>Current loop: {loop}</Text>
+      <LoopFunc sound={sound} loop={loop}/>
+      <Text>Current loop: {loop[0]/1000}-{loop[1]/1000}</Text>
     </View>
   );
 }

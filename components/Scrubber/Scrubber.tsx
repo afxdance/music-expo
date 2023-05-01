@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { Audio, AVPlaybackStatus } from 'expo-av';
+import { loopStyle, styles } from './styles';
 
 type ScrubberProps = {
   sound: Audio.Sound;
@@ -54,19 +56,23 @@ const Scrubber = (props: ScrubberProps) => {
   const setSoundPosition = async(value: number) => {
     console.log('set position');
     if (props.sound instanceof Audio.Sound) {
-      await props.sound.playFromPositionAsync(value * duration)
+      await props.sound.setPositionAsync(value * duration)
     }
   }
 
   return (
-    <Slider
-      style={{width: 300, height: 40}}
-      minimumValue={0}
-      maximumValue={1}
-      value={sliderValue}
-      onSlidingComplete={(value: number) => setSoundPosition(value)}
-    />
+    <View style={styles.container}>
+  
+      <Slider
+        style={styles.slider}
+        minimumValue={0}
+        maximumValue={1}
+        value={sliderValue}
+        onSlidingComplete={(value: number) => setSoundPosition(value)}
+      />
+    </View>
   );
 }
 
+{/* <View style={loopStyle(props.loop[0], props.loop[1], duration)}/> */}
 export default Scrubber;
