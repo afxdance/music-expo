@@ -32,15 +32,6 @@ export default function App(): JSX.Element {
       .catch(console.error);
   }, [])
 
-  const unloadSound = async() => {
-    console.log('Unload sound')
-    if (sound != null) {
-      await sound.unloadAsync().catch(console.error);
-      setSound(null);
-      setSource(null);
-    }
-  }
-
   const page_styles = StyleSheet.create({
     viewPager: {
       flex: 1,
@@ -52,16 +43,6 @@ export default function App(): JSX.Element {
   });
 
   return (
-    // <View style={styles.container}>
-    //   <Text>AFX Dance Music App</Text>
-    //   <StatusBar style="auto" />
-    //   <LoadSoundButton setSound={setSound} setSource={setSource} sound={sound}/>
-    //   <PlayPauseButton sound={sound}/>
-    //   <Scrubber sound={sound}/>
-    //   <Title source={source}/>
-    //   <SpeedChanger sound={sound}/>
-    // </View>
-
     <View style={{ flex: 1 }}>
       <PagerView style={page_styles.viewPager} initialPage={0}>
         <View style={page_styles.page} key="1">
